@@ -20,6 +20,22 @@ app.post('/createuser', (req,res)=>{
     .then(data=> res.json(data))
     .catch(err=> res.json(err))
 })
+
+app.get('/getuser/:id', (req,res)=>{
+    const id=req.params.id;
+    UserModel.findById({_id:id})
+    .then(data=> res.json(data))
+    .catch(err=> res.json(err))
+})
+app.put('/updateuser/:id',(req,res)=>{
+    const id=req.params.id;
+    UserModel.findByIdAndUpdate({_id:id},
+            {name:req.body.name,
+            email:req.body.email,
+            age:req.body.age})
+    .then(data=> res.json(data))
+    .catch(err=> res.json(err))
+})
 app.listen(3001,()=>{
     console.log("Server is running on port 3001")
 })
